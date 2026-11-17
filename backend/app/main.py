@@ -6,7 +6,7 @@ from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from .db import init_db
-from .routers import match, portfolio
+from .routers import assistant, match, portfolio
 from .services.github_client import GitHubError
 
 app = FastAPI(title="GitHub Developer Portfolio API", version="1.0.0")
@@ -25,6 +25,7 @@ async def _gh_error(_: Request, exc: GitHubError):
 
 app.include_router(portfolio.router)
 app.include_router(match.router)
+app.include_router(assistant.router)
 
 
 @app.get("/api/health")
