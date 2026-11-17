@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitHub Developer Portfolio</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <nav class="topbar">
+    <span class="brand">⌘ DevPortfolio</span>
+    <form id="search-form">
+      <input id="username" placeholder="GitHub username" required />
+      <button type="submit">Load</button>
+      <button type="button" id="refresh" title="Bypass cache">↻</button>
+    </form>
+  </nav>
+
+  <main id="app" class="hidden">
+    <div id="match-badge" class="match-badge hidden"></div>
+
+    <!-- Profile header -->
+    <section class="card profile">
+      <img id="avatar" alt="avatar" />
+      <div class="profile-info">
+        <h1 id="name"></h1>
+        <a id="login" target="_blank"></a>
+        <p id="bio"></p>
+        <div class="stats">
+          <div><b id="followers">0</b><span>Followers</span></div>
+          <div><b id="stars">0</b><span>Total Stars</span></div>
+          <div><b id="forks">0</b><span>Forks</span></div>
+          <div><b id="repo-count">0</b><span>Repos</span></div>
+          <div><b id="streak">0</b><span>Current Streak</span></div>
+          <div><b id="longest">0</b><span>Longest Streak</span></div>
+        </div>
+      </div>
+      <div class="lang-chart">
+        <h3>Top Languages</h3>
+        <canvas id="lang-pie"></canvas>
+      </div>
+    </section>
+
+    <!-- Contribution graph -->
+    <section class="card">
+      <h2>Contribution Activity <small id="contrib-meta"></small></h2>
+      <div class="heatmap-wrap"><div id="heatmap" class="heatmap"></div></div>
+      <div class="legend">Less <i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i> More</div>
+    </section>
+
+    <div class="grid-2">
+      <!-- Tech stack compatibility -->
+      <section class="card">
+        <h2>Tech Stack Compatibility</h2>
+        <textarea id="jd" rows="7" placeholder="Paste a job description..."></textarea>
+        <button id="match-btn">Calculate Match</button>
+        <div id="match-result"></div>
+      </section>
+
+      <!-- AI Insights -->
+      <section class="card">
+        <h2>AI Career Insights</h2>
+        <p id="ai-bio" class="ai-bio"></p>
+        <div id="strength"></div>
+        <div id="roadmap"></div>
+      </section>
+    </div>
+
+    <!-- Repositories -->
+    <section class="card">
+      <h2>Repositories
+        <select id="sort">
+          <option value="stars">Stars</option><option value="forks">Forks</option>
+          <option value="updated">Recently updated</option><option value="name">Name</option>
+        </select>
+      </h2>
+      <div id="repos" class="repo-grid"></div>
+    </section>
+  </main>
+
+  <div id="empty" class="empty">Enter a GitHub username to build a portfolio.</div>
+  <div id="error" class="toast hidden"></div>
+
+  <!-- Chatbot -->
+  <button id="chat-toggle" class="chat-toggle hidden">💬 Ask my portfolio</button>
+  <div id="chat" class="chat hidden">
+    <div class="chat-head">Portfolio Assistant <span id="chat-close">✕</span></div>
+    <div id="chat-log" class="chat-log"></div>
+    <form id="chat-form"><input id="chat-input" placeholder="e.g. Does she know React?" /><button>Send</button></form>
+  </div>
+
+  <script src="/static/api.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>
